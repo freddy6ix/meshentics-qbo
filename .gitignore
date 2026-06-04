@@ -24,6 +24,10 @@
 *.pem
 service-account*.json
 
+# Raw card data for the client (PII) — never commit, except the folder's README
+client/data/*
+!client/data/README.md
+
 # Local/working
 .DS_Store
 node_modules/

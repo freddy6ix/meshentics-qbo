@@ -5,8 +5,10 @@
 
 import { generateAuthUrl, exchangeCode } from './auth.ts';
 import { getCompanyInfo } from './qbo.ts';
+import { runParse } from './report.ts';
 
 const [cmd, ...args] = process.argv.slice(2);
+const DATA_DIR = new URL('../data', import.meta.url).pathname;
 
 async function main(): Promise<void> {
   switch (cmd) {
@@ -31,8 +33,12 @@ async function main(): Promise<void> {
       console.log('  Country:', info?.Country, '| Fiscal year start month:', info?.FiscalYearStartMonth);
       break;
     }
+    case 'parse': {
+      await runParse(DATA_DIR); // offline dry-run; no QBO connection needed
+      break;
+    }
     default:
-      console.log('Commands:\n  npm run qbo authurl\n  npm run qbo exchange <code> <realmId>\n  npm run qbo ping');
+      console.log('Commands:\n  npm run qbo authurl\n  npm run qbo exchange <code> <realmId>\n  npm run qbo ping\n  npm run qbo parse   (offline: classify CSVs in client/data/)');
   }
 }
 
