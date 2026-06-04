@@ -34,7 +34,7 @@ async function main(): Promise<void> {
       break;
     }
     case 'parse': {
-      await runParse(DATA_DIR); // offline dry-run; no QBO connection needed
+      await runParse(DATA_DIR, { showPersonal: args.includes('--show-personal') }); // offline; no QBO connection
       break;
     }
     default:

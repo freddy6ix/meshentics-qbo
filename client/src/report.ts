@@ -20,7 +20,7 @@ function fmt(n: number): string {
   return n.toLocaleString('en-CA', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
-export async function runParse(dataDir: string): Promise<void> {
+export async function runParse(dataDir: string, opts: { showPersonal?: boolean } = {}): Promise<void> {
   const txns = await loadTransactions(dataDir);
   const lines: Line[] = txns.map((t) => {
     const c = classify(t.description);
@@ -77,5 +77,16 @@ export async function runParse(dataDir: string): Promise<void> {
   const outPath = join(dataDir, 'review-output.json');
   await writeFile(outPath, JSON.stringify(out, null, 2));
   console.log(`\nWrote ${out.length} business+review lines to ${outPath} (gitignored) for your review.`);
-  console.log('Personal lines are intentionally omitted from the output file.\n');
+
+  if (opts.showPersonal) {
+    // Local-only dump so Frederick can scan for business vendors the rules don't know yet.
+    // Gitignored — never committed (§6).
+    const personalOut = personal.map(({ date, source, amount, description }) => ({ date, source, amount, description }));
+    const pPath = join(dataDir, 'personal-output.json');
+    await writeFile(pPath, JSON.stringify(personalOut, null, 2));
+    console.log(`Wrote ${personalOut.length} personal lines to ${pPath} (gitignored) — scan for any business vendor I missed.`);
+  } else {
+    console.log('Personal lines omitted from output. Re-run with --show-personal to dump them locally for review.');
+  }
+  console.log('');
 }
