@@ -32,6 +32,11 @@ export async function getCompanyInfo(): Promise<any> {
   return r?.QueryResponse?.CompanyInfo?.[0];
 }
 
+export async function getAccounts(): Promise<any[]> {
+  const r = await query('select * from Account maxresults 1000');
+  return r?.QueryResponse?.Account ?? [];
+}
+
 export async function createAccount(account: Record<string, unknown>): Promise<any> {
   return apiRequest('POST', 'account', account);
 }

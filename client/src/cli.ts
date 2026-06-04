@@ -6,6 +6,8 @@
 import { generateAuthUrl, exchangeCode } from './auth.ts';
 import { getCompanyInfo } from './qbo.ts';
 import { runParse } from './report.ts';
+import { loadCoa } from './coa.ts';
+import { postCatchup } from './post.ts';
 
 const [cmd, ...args] = process.argv.slice(2);
 const DATA_DIR = new URL('../data', import.meta.url).pathname;
@@ -37,8 +39,24 @@ async function main(): Promise<void> {
       await runParse(DATA_DIR, { showPersonal: args.includes('--show-personal') }); // offline; no QBO connection
       break;
     }
+    case 'load-coa': {
+      await loadCoa({ commit: args.includes('--commit') }); // dry-run unless --commit
+      break;
+    }
+    case 'post': {
+      await postCatchup(DATA_DIR, { commit: args.includes('--commit') }); // dry-run unless --commit
+      break;
+    }
     default:
-      console.log('Commands:\n  npm run qbo authurl\n  npm run qbo exchange <code> <realmId>\n  npm run qbo ping\n  npm run qbo parse   (offline: classify CSVs in client/data/)');
+      console.log(
+        'Commands:\n' +
+          '  npm run qbo authurl\n' +
+          '  npm run qbo exchange <code> <realmId>\n' +
+          '  npm run qbo ping\n' +
+          '  npm run qbo parse [--show-personal]   (offline: classify CSVs in client/data/)\n' +
+          '  npm run qbo load-coa [--commit]       (create chart of accounts)\n' +
+          '  npm run qbo post [--commit]           (post catch-up journal entries)',
+      );
   }
 }
 

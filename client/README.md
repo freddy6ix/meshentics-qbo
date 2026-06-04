@@ -41,9 +41,13 @@ re-authorize against the real Meshentics company, and `ping` again.
 | `npm run qbo authurl` | Print the OAuth authorize URL. |
 | `npm run qbo exchange <code> <realmId>` | Exchange an auth code for tokens (saved, gitignored). |
 | `npm run qbo ping` | Verify the connection; prints company name + fiscal-year start. |
-| `npm run typecheck` | Type-check the client. |
+| `npm run qbo parse [--show-personal]` | **Offline.** Classify CSVs in `data/`; preview business/personal split. |
+| `npm run qbo load-coa [--commit]` | Create the [chart of accounts](../chart-of-accounts.md). Dry-run unless `--commit`. |
+| `npm run qbo post [--commit]` | Post catch-up journal entries (Dr expense / Cr Due to Shareholder). Dry-run unless `--commit`. |
+| `npm run typecheck` / `npm test` | Type-check / run unit tests. |
 
-## Next (not built yet)
-- `load-coa` — create the [chart of accounts](../chart-of-accounts.md) via API.
-- `post` — parse card CSVs (from the secured store), filter to business lines via
-  [vendor-classification.md](../vendor-classification.md), post as journal entries to *Due to Shareholder*.
+## Validation status
+`authurl`/`exchange`/`ping`/`parse` are exercised offline. **`load-coa` and `post` `--commit`
+paths have not yet run against a live QBO company** — validate against an Intuit **sandbox**
+first (account subtypes and journal-entry shape may need minor tweaks). `post --commit`
+should be run **once** (no duplicate-detection yet; entries carry a `MESH-CATCHUP` key for cleanup).
