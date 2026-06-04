@@ -13,6 +13,10 @@
 # Secrets / credentials / tokens
 *.env
 .env*
+!.env.example
+!**/.env.example
+*.tokens.json
+.tokens.json
 *secret*
 *token*
 *credential*

@@ -1,0 +1,16 @@
+{
+  "name": "meshentics-qbo-client",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "QBO API client for Meshentics bookkeeping (catch-up + ongoing close). See ../decisions/0002-qbo-interface.md.",
+  "scripts": {
+    "qbo": "node --env-file-if-exists=.env --import tsx src/cli.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  }
+}

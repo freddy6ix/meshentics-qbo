@@ -17,8 +17,8 @@ _Created 2026-06-04 EDT (end of session 1)._
 |----|------|-----|--------|-------|
 | S1 | Verify QBO company settings | P0 | ☐ | Company file exists. Confirm: **fiscal year first month = August** (FYE Jul 31), **BN 777028630** entered, **multicurrency OFF**. Gear → Account & settings → Advanced. |
 | S2 | Set up QBO Sales Tax (HST) | P0 | ☐ | Ontario, **annual** filing, **effective 2026-05-05**, RT0001. Taxes menu. |
-| S3 | Register Intuit Developer app + OAuth | P0 | ☐ | Frederick's Intuit account → client ID/secret, redirect URI, scope `com.intuit.quickbooks.accounting`. [ADR-0002](decisions/0002-qbo-interface.md). |
-| S4 | Build QBO API client | P0 | ☐ | Standalone (lean TS/Node) in this repo: 3-legged OAuth + token refresh, chart-of-accounts loader, journal-entry/expense poster. Test in Intuit **sandbox** first. |
+| S3 | Register Intuit Developer app + OAuth | P0 | ☐ | **Frederick — runbook in [client/README.md](client/README.md).** Intuit account → client ID/secret, redirect URI `http://localhost:8000/callback`, scope `com.intuit.quickbooks.accounting`. |
+| S4 | Build QBO API client | P0 | ◐ | **Foundation built** in [client/](client/): OAuth + token refresh + `ping` (connection verified by typecheck/smoke test). **Remaining:** `load-coa` and `post` (journal entries → Due to Shareholder). Test in Intuit **sandbox** first. |
 | S5 | Load chart of accounts into QBO via API | P1 | ☐ | From [chart-of-accounts.md](chart-of-accounts.md). After S4. |
 | S6 | Provision secured GCS bucket + secret store | P1 | ☐ | `gs://…-qbo-meshentics/`, IAM-walled, dedicated project, **6-yr retention** (CRA), Secret Manager for OAuth tokens. [ADR-0003](decisions/0003-source-doc-storage.md). Confirm exact bucket name/project. |
 | S7 | Disable Claude-for-Chrome "Act without asking" in QBO | P1 | ☐ | Seen in HIGH-RISK auto-act mode in live books; we book via API, not browser auto-actions. |
