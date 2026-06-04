@@ -33,6 +33,7 @@ _Last updated: 2026-06-04 EDT. Source: business/personal split of CIBC Visa •�
 | Google Workspace (GSuite) | 6000 Software & subscriptions | Meshentics email/productivity. |
 | Intuit / QuickBooks Online | 6000 Software & subscriptions | |
 | Apple (Apple.com/CA) | 6000 software *or* 1500 equipment | Confirmed business 2026-06-04. Split case-by-case: hardware → 1500; iCloud/services → 6000. |
+| LinkedIn | 6300 Advertising & marketing | Meshentics marketing. Confirmed 2026-06-04. |
 | Corporations Canada; NUANS name search | 6120 Incorporation & registration fees | Pre-incorp → Due to Shareholder. |
 | USPTO; CIPO (trademark/IP) | Intangible (Class 14.1?) | Treatment pending Mike — see [mike-review-queue.md](mike-review-queue.md) M8. |
 | Parking / Presto / Bike Share Toronto | 6620 Transportation — local | Per Frederick (2026-06-04), business transportation. Commuting-vs-business-travel split → Mike (M9). Uber/taxi: same treatment pending confirm. |
@@ -46,13 +47,11 @@ the corp accruing **reasonable interest on the shareholder-loan balance**, not a
 personal-card interest directly. Other card fees (annual fee, cash-advance fee, balance
 transfer, PaySmart installment fees) remain personal unless directed otherwise.
 
-## Pending decision
+## Resolved (2026-06-04)
 
-| Vendor | Default if unconfirmed | Note |
-|--------|------------------------|------|
-| LinkedIn | personal | Confirm if recruiting/marketing → then 6300. |
-| QuantConnect | personal | Quant-trading platform; seems unrelated to salon SaaS. |
-| WeFunder | **needs explanation** | Large; could be personal investing **or** a Meshentics capital raise (equity/financing, not an expense). |
+- **LinkedIn → business** (Meshentics marketing) → 6300 Advertising & marketing.
+- **QuantConnect → personal** (personal investing) — excluded.
+- **WeFunder → personal** (personal investing, *not* a Meshentics capital raise) — excluded.
 
 ## Personal → never cross onto the books (§4/§6)
 
