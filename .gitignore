@@ -1,0 +1,25 @@
+# PII / financial-data discipline (charter §6) — never commit raw source data or secrets.
+# The repo holds treatments and reasoning only; figures/statements live in the secured store.
+
+# Raw source documents & data exports
+*.csv
+*.pdf
+*.xlsx
+*.xls
+*.ofx
+*.qbo
+*.qfx
+
+# Secrets / credentials / tokens
+*.env
+.env*
+*secret*
+*token*
+*credential*
+*.key
+*.pem
+service-account*.json
+
+# Local/working
+.DS_Store
+node_modules/
