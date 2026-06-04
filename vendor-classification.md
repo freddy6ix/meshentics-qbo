@@ -36,7 +36,7 @@ _Last updated: 2026-06-04 EDT. Source: business/personal split of CIBC Visa •�
 | LinkedIn | 6300 Advertising & marketing | Meshentics marketing. Confirmed 2026-06-04. |
 | Corporations Canada; NUANS name search | 6120 Incorporation & registration fees | Pre-incorp → Due to Shareholder. |
 | USPTO; CIPO (trademark/IP) | Intangible (Class 14.1?) | Treatment pending Mike — see [mike-review-queue.md](mike-review-queue.md) M8. |
-| Parking / Presto / Bike Share Toronto | 6620 Transportation — local | Per Frederick (2026-06-04), business transportation. Commuting-vs-business-travel split → Mike (M9). Uber/taxi: same treatment pending confirm. |
+| Parking / Presto / Bike Share Toronto | 6610 Travel | Per Frederick (2026-06-04), business transportation, booked under Travel (6610). Commuting-vs-business-travel split → Mike (M9). Uber/taxi: same treatment pending confirm. |
 
 ## Card interest → shareholder loan (per Frederick 2026-06-04)
 
