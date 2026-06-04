@@ -50,4 +50,5 @@ re-authorize against the real Meshentics company, and `ping` again.
 `authurl`/`exchange`/`ping`/`parse` are exercised offline. **`load-coa` and `post` `--commit`
 paths have not yet run against a live QBO company** — validate against an Intuit **sandbox**
 first (account subtypes and journal-entry shape may need minor tweaks). `post --commit`
-should be run **once** (no duplicate-detection yet; entries carry a `MESH-CATCHUP` key for cleanup).
+is **idempotent** — it skips entries already in QBO (matched by their `MESH-CATCHUP`
+PrivateNote key), so it's safe to re-run or resume after a partial failure.

@@ -4,12 +4,12 @@
 // Dry-run by default (offline, no API): prints what would post. --commit fetches accounts
 // and creates the entries. Only 'business' lines post; 'review'/'personal' are skipped.
 //
-// NOTE: re-running with --commit will create DUPLICATES — run the commit once. (Each entry
-// carries a stable MESH-CATCHUP key in PrivateNote so duplicates can be found/cleaned later.)
+// Idempotent: each entry carries a stable MESH-CATCHUP key in PrivateNote; --commit skips
+// any key already present in QBO, so it is safe to re-run / resume after a partial failure.
 
 import { loadTransactions } from './parse.ts';
 import { classify } from './classify.ts';
-import { getAccounts, createJournalEntry } from './qbo.ts';
+import { getAccounts, getJournalEntries, createJournalEntry } from './qbo.ts';
 
 const DUE_TO_SHAREHOLDER_NUM = '2300';
 
@@ -19,6 +19,11 @@ interface Intent {
   vendor: string;
   source: string;
   amount: number; // signed: + charge, - refund
+}
+
+// Stable dedupe key (also stored in PrivateNote) so --commit is idempotent.
+function intentKey(i: Intent): string {
+  return `MESH-CATCHUP ${i.source} ${i.date} ${Math.abs(i.amount).toFixed(2)} ${i.vendor}`;
 }
 
 function buildIntents(txns: Awaited<ReturnType<typeof loadTransactions>>): Intent[] {
@@ -50,8 +55,16 @@ export async function postCatchup(dataDir: string, opts: { commit?: boolean } = 
   const dueId = idByNum.get(DUE_TO_SHAREHOLDER_NUM);
   if (!dueId) throw new Error(`Account ${DUE_TO_SHAREHOLDER_NUM} (Due to Shareholder) not found — run load-coa --commit first.`);
 
-  let posted = 0, skipped = 0, failed = 0;
+  // Idempotency: skip any entry already posted (matched by MESH-CATCHUP key in PrivateNote).
+  const alreadyPosted = new Set(
+    (await getJournalEntries()).map((j) => String(j.PrivateNote ?? '')).filter((n) => n.startsWith('MESH-CATCHUP')),
+  );
+
+  let posted = 0, skipped = 0, duplicate = 0, failed = 0;
   for (const i of intents) {
+    const key = intentKey(i);
+    if (alreadyPosted.has(key)) { duplicate++; continue; }
+
     const expId = idByNum.get(i.account);
     if (!expId) { skipped++; console.log(`  skip ${i.date} ${i.vendor}: account ${i.account} not in QBO`); continue; }
 
@@ -60,7 +73,7 @@ export async function postCatchup(dataDir: string, opts: { commit?: boolean } = 
     const desc = `${i.vendor} (${i.source})`;
     const je = {
       TxnDate: i.date,
-      PrivateNote: `MESH-CATCHUP ${i.source} ${i.date} ${amount.toFixed(2)} ${i.vendor}`,
+      PrivateNote: key,
       Line: [
         { Amount: amount, DetailType: 'JournalEntryLineDetail', Description: desc,
           JournalEntryLineDetail: { PostingType: expenseIsDebit ? 'Debit' : 'Credit', AccountRef: { value: expId } } },
@@ -76,5 +89,5 @@ export async function postCatchup(dataDir: string, opts: { commit?: boolean } = 
       failed++; console.log(`  ✗ ${i.date} ${i.vendor}: ${(e as Error).message}`);
     }
   }
-  console.log(`\nPosted ${posted}, skipped ${skipped}, failed ${failed}.\n`);
+  console.log(`\nPosted ${posted}, already-present ${duplicate}, skipped ${skipped}, failed ${failed}.\n`);
 }

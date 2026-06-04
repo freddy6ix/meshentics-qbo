@@ -39,7 +39,7 @@ function detect(text: string, file: string): Source {
   return 'unknown';
 }
 
-function parseBySource(text: string, source: Source, file: string): Txn[] {
+export function parseBySource(text: string, source: Source, file: string): Txn[] {
   if (source === 'cibc') {
     const rows = parseCsv(text, { relax_column_count: true, skip_empty_lines: true, bom: true }) as string[][];
     return rows

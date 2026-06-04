@@ -33,7 +33,7 @@ _Created 2026-06-04 EDT (end of session 1)._
 | C4 | Identify Meshentics business lines from personal cards | P0 | ◐ | **Automated** via `npm run qbo parse` (classifies CSVs in client/data/, most lines → personal). Awaiting: Frederick drops the card CSVs in client/data/ and reviews `review-output.json`. |
 | C5 | Determine specific personal accounts in scope | P1 | ☐ | Which cards/debit accounts carried Meshentics charges. Per-account as we work. |
 | C6 | Build shareholder-loan startup-cost schedule | P1 | ☐ | By month/vendor/category, with HST. Lives in **secured store** (has figures), not repo. |
-| C7 | Post catch-up entries via API | P1 | ◐ | `post` built (dry-run tested: Dr expense / Cr **2300**, refunds reverse, personal excluded). Needs sandbox + `load-coa --commit` first. Run `--commit` **once** (no dedupe yet). |
+| C7 | Post catch-up entries via API | P1 | ◐ | `post` built (dry-run tested: Dr expense / Cr **2300**, refunds reverse, personal excluded). **Idempotent** — `--commit` skips already-posted entries (MESH-CATCHUP key), safe to re-run. Needs sandbox + `load-coa --commit` first. |
 
 ## Chart of accounts refinements
 

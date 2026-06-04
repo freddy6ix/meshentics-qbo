@@ -20,6 +20,20 @@ function fmt(n: number): string {
   return n.toLocaleString('en-CA', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
+// Collapse a description to a merchant-ish key so recurring charges group together
+// (e.g. "SHOPPERS DRUG MART 939" / "SHOPPERS DRUG MART #13" → "SHOPPERS DRUG MART").
+function merchantKey(desc: string): string {
+  return desc
+    .toUpperCase()
+    .replace(/\d+(\.\d+)?\s*(USD|CAD|EUR|KRW|GBP)?(\s*@\s*[\d.]+)?/g, ' ')
+    .replace(/[^A-Z ]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .split(' ')
+    .slice(0, 3)
+    .join(' ');
+}
+
 export async function runParse(dataDir: string, opts: { showPersonal?: boolean } = {}): Promise<void> {
   const txns = await loadTransactions(dataDir);
   const lines: Line[] = txns.map((t) => {
@@ -67,6 +81,20 @@ export async function runParse(dataDir: string, opts: { showPersonal?: boolean }
   // Personal / excluded (aggregate only — no itemizing of personal lines, §6)
   console.log(`\nPERSONAL — left off the books: ${personal.length} lines, $${fmt(sum(personal))} (not itemized).`);
   console.log(`EXCLUDED — payments/fees/transfers: ${excluded.length} lines.`);
+
+  // Recurring personal merchants — local hint to catch a business vendor the rules missed.
+  const recur = new Map<string, { n: number; total: number }>();
+  for (const l of personal) {
+    const k = merchantKey(l.description);
+    const e = recur.get(k) ?? { n: 0, total: 0 };
+    e.n += 1; e.total += l.amount;
+    recur.set(k, e);
+  }
+  const top = [...recur].filter(([, e]) => e.n >= 3).sort((a, b) => b[1].n - a[1].n).slice(0, 15);
+  if (top.length) {
+    console.log('\nRecurring personal merchants (≥3×) — confirm none are actually business:');
+    for (const [k, e] of top) console.log(`  ${String(e.n).padStart(3)}×  $${fmt(e.total).padStart(10)}  ${k}`);
+  }
 
   // Write detail for business + review only (not personal) to a gitignored file
   const out = lines

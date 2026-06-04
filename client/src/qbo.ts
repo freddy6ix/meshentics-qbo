@@ -41,6 +41,20 @@ export async function createAccount(account: Record<string, unknown>): Promise<a
   return apiRequest('POST', 'account', account);
 }
 
+export async function getJournalEntries(): Promise<any[]> {
+  const all: any[] = [];
+  let start = 1;
+  const page = 500;
+  for (;;) {
+    const r = await query(`select * from JournalEntry startposition ${start} maxresults ${page}`);
+    const batch: any[] = r?.QueryResponse?.JournalEntry ?? [];
+    all.push(...batch);
+    if (batch.length < page) break;
+    start += page;
+  }
+  return all;
+}
+
 export async function createJournalEntry(entry: Record<string, unknown>): Promise<any> {
   return apiRequest('POST', 'journalentry', entry);
 }
