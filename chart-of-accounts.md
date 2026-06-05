@@ -19,6 +19,7 @@ optional in QBO but recommended — they keep reports ordered and stable.
 | # | Account | QBO type | Notes |
 |---|---------|----------|-------|
 | 1000 | CIBC Chequing — Corporate | Bank | The corporate operating account. |
+| 1010 | CIBC Chequing — Corporate 2 | Bank | Second corporate chequing account (opened ~2026-06; $0 opening). |
 | 1100 | Accounts Receivable | Accounts receivable (A/R) | Roux subscription invoices, when billing starts. |
 | 1200 | Prepaid Expenses | Other current asset | Annual subscriptions/insurance paid up front. |
 | 1300 | GST/HST Receivable (ITCs) | *(managed by Sales Tax module)* | Do not post manually. |
@@ -31,7 +32,7 @@ optional in QBO but recommended — they keep reports ordered and stable.
 |---|---------|----------|-------|
 | 2000 | Accounts Payable | Accounts payable (A/P) | Vendor bills outstanding. |
 | 2100 | CIBC Credit Card — Corporate | Credit card | Existing corporate card. |
-| 2110 | CIBC Credit Card — Corporate (2026) | Credit card | New card being issued ~week of 2026-06-04; add on issuance. |
+| 2110 | CIBC Credit Card — Corporate (2026) | Credit card | New card mailed 2026-06-05; in COA loader. Activate, then post once first transaction lands. |
 | 2200 | GST/HST Payable | *(managed by Sales Tax module)* | Do not post manually. |
 | **2300** | **Due to Shareholder — Frederick Ferguson** | **Other current liability** | **Key account.** Credit = corp owes Frederick. All personally-paid Meshentics costs and pre-incorp startup costs credit here. Single shareholder → clean. |
 | 2400 | Payroll Liabilities | Other current liability | Placeholder; activate only if payroll (RP account) starts. |

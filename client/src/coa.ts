@@ -14,12 +14,14 @@ export interface AccountDef {
 
 export const ACCOUNTS: AccountDef[] = [
   { num: '1000', name: 'CIBC Chequing - Corporate', type: 'Bank', subType: 'Checking' },
+  { num: '1010', name: 'CIBC Chequing - Corporate 2', type: 'Bank', subType: 'Checking' },
   { num: '1100', name: 'Accounts Receivable', type: 'Accounts Receivable', subType: 'AccountsReceivable' },
   { num: '1200', name: 'Prepaid Expenses', type: 'Other Current Asset', subType: 'PrepaidExpenses' },
   { num: '1500', name: 'Computer & Office Equipment', type: 'Fixed Asset', subType: 'OtherFixedAssets' },
   { num: '1510', name: 'Accumulated Depreciation', type: 'Fixed Asset', subType: 'AccumulatedDepreciation' },
   { num: '2000', name: 'Accounts Payable', type: 'Accounts Payable', subType: 'AccountsPayable' },
   { num: '2100', name: 'CIBC Credit Card - Corporate', type: 'Credit Card', subType: 'CreditCard' },
+  { num: '2110', name: 'CIBC Credit Card - Corporate (2026)', type: 'Credit Card', subType: 'CreditCard' },
   { num: '2300', name: 'Due to Shareholder - Frederick Ferguson', type: 'Other Current Liability', subType: 'OtherCurrentLiabilities' },
   { num: '2400', name: 'Payroll Liabilities', type: 'Other Current Liability', subType: 'OtherCurrentLiabilities' },
   { num: '2500', name: 'Corporate Income Tax Payable', type: 'Other Current Liability', subType: 'OtherCurrentLiabilities' },

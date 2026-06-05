@@ -17,9 +17,9 @@ _Created 2026-06-04 EDT (end of session 1)._
 |----|------|-----|--------|-------|
 | S1 | Verify QBO company settings | P0 | ☐ | Company file exists. Confirm: **fiscal year first month = August** (FYE Jul 31), **BN 777028630** entered, **multicurrency OFF**. Gear → Account & settings → Advanced. |
 | S2 | Set up QBO Sales Tax (HST) | P0 | ☐ | Ontario, **annual** filing, **effective 2026-05-05**, RT0001. Taxes menu. |
-| S3 | Register Intuit Developer app + OAuth | P0 | ☐ | **Frederick — runbook in [client/README.md](client/README.md).** Intuit account → client ID/secret, redirect URI `http://localhost:8000/callback`, scope `com.intuit.quickbooks.accounting`. |
-| S4 | Build QBO API client | P0 | ◐ | **Built** in [client/](client/): `authurl`/`exchange`/`ping`, `parse`, `load-coa`, `post` (all dry-runs tested offline; unit-tested). **Remaining:** validate `load-coa`/`post` `--commit` against a live sandbox (account subtypes + JE shape). |
-| S5 | Load chart of accounts into QBO via API | P1 | ◐ | `load-coa` built (dry-run tested). Run `--commit` against sandbox to validate subtypes. Enable "Account numbers" in QBO settings first. |
+| S3 | Register Intuit Developer app + OAuth | P0 | ✅ | App **`Meshentics Bookkeeping`** registered (AppID `6ae53bdf…`); **Development** keys in `client/.env`; connected to a **Canadian sandbox** (2026-06-05). **Production** keys not yet used. |
+| S4 | Build QBO API client | P0 | ✅ | Built + **sandbox-validated end-to-end (2026-06-05)**: `load-coa -- --commit` → 27 accounts, 0 failed; `post -- --commit` → 4 JEs, re-run idempotent. (Flag needs `-- ` separator.) |
+| S5 | Load chart of accounts into QBO via API | P1 | ◐ | **Validated in sandbox** (27 created). **Remaining:** run `load-coa -- --commit` against the **real Meshentics company** in production. Enable "Account numbers" in QBO settings first. |
 | S6 | Provision secured GCS bucket + secret store | P1 | ☐ | `gs://…-qbo-meshentics/`, IAM-walled, dedicated project, **6-yr retention** (CRA), Secret Manager for OAuth tokens. [ADR-0003](decisions/0003-source-doc-storage.md). Confirm exact bucket name/project. |
 | S7 | Disable Claude-for-Chrome "Act without asking" in QBO | P1 | ☐ | Seen in HIGH-RISK auto-act mode in live books; we book via API, not browser auto-actions. |
 
@@ -33,7 +33,7 @@ _Created 2026-06-04 EDT (end of session 1)._
 | C4 | Identify Meshentics business lines from personal cards | P0 | ◐ | **Automated** via `npm run qbo parse` (classifies CSVs in client/data/, most lines → personal). Awaiting: Frederick drops the card CSVs in client/data/ and reviews `review-output.json`. |
 | C5 | Determine specific personal accounts in scope | P1 | ☐ | Which cards/debit accounts carried Meshentics charges. Per-account as we work. |
 | C6 | Build shareholder-loan startup-cost schedule | P1 | ☐ | By month/vendor/category, with HST. Lives in **secured store** (has figures), not repo. |
-| C7 | Post catch-up entries via API | P1 | ◐ | `post` built (dry-run tested: Dr expense / Cr **2300**, refunds reverse, personal excluded). **Idempotent** — `--commit` skips already-posted entries (MESH-CATCHUP key), safe to re-run. Needs sandbox + `load-coa --commit` first. |
+| C7 | Post catch-up entries via API | P1 | ◐ | `post` **sandbox-validated 2026-06-05** (4 JEs: Dr expense / Cr **2300**, refunds reverse, personal excluded; idempotent). **Remaining:** real personal-card CSVs in `client/data/` → run against production. |
 
 ## Chart of accounts refinements
 
@@ -42,7 +42,7 @@ _Created 2026-06-04 EDT (end of session 1)._
 | A1 | Add OpenAI to AI/LLM API cost line | P2 | ☐ | Alongside Anthropic (acct ~5010). |
 | A2 | Add USPTO trademark account/treatment | P2 | ☐ | Likely intangible/startup cost (Class 14.1?) not regular expense → see Mike (M8). |
 | A3 | Map remaining vendors to accounts | P2 | ☐ | Google Workspace → software/subs; Cloudflare/GoDaddy → domains/DNS. Refine once real data seen. |
-| A4 | Add new CIBC corporate credit card account | P1 | ☐ | Acct 2110, on issuance (~week of 2026-06-04). Go-forward source. |
+| A4 | Add new CIBC corporate credit card account | P1 | ✅ | Acct **2110** added to `coa.ts` + doc (card mailed 2026-06-05). **Not activated yet** → no card bank-feed possible until live; connect feed then. Also added **1010** (2nd corporate chequing). |
 
 ## Mike (CPA) — year-end / first T2
 
@@ -83,3 +83,18 @@ Tracked in [mike-review-queue.md](mike-review-queue.md). Summary: HST backdate (
 - CRA: BN **777028630**, **RC0001** (income tax), **RT0001** (GST/HST, effective 2026-05-05) all active; email notifications on.
 - Drafted [chart-of-accounts.md](chart-of-accounts.md), [catch-up-plan.md](catch-up-plan.md), [mike-review-queue.md](mike-review-queue.md).
 - Decided personal accounts never become QBO accounts / never bank-fed.
+
+## ✅ Done session 2 (2026-06-05)
+
+- **Intuit dev app registered + connected to a Canadian sandbox**; full API path
+  validated: `load-coa` (27 accounts, 0 failed) + `post` (4 JEs, idempotent). [S3, S4]
+- **CIBC corporate chequing bank feeds connected** (via Claude-for-Chrome): both deposit
+  accounts (…1011, …4904), history back to **2024-06-06** (~24 mo), nothing accepted.
+  1 item pending review (2025-09-24 "CANADIAN OUTLET" $20 on …1011).
+- **Confirmed no active corporate credit card** — only the 2110 card mailed 2026-06-05
+  (not activated). No card feed possible until live.
+- COA: added **1010** (2nd chequing) + **2110** (2026 card) to loader & doc. [A4]
+- **Plan refined:** corporate accounts have ~no history → catch-up is the personal-card →
+  **2300** reconstruction via the API pipeline. Feeds handle going-forward only. [C1]
+- Next: **production** — Production keys → authorize real Meshentics company → `load-coa`,
+  then `post` once real personal-card CSVs are in `client/data/`.
