@@ -15,6 +15,7 @@ Meshentics' QuickBooks Online (QBO) books current and keeping them current.
 
 | Path | Purpose |
 |------|---------|
+| [STATUS.md](STATUS.md) | **Current status + resume-here next steps. Read this first to pick up work.** |
 | [docs/meshentics-bookkeeping-CLAUDE.md](docs/meshentics-bookkeeping-CLAUDE.md) | The project charter / mandate. Read first. |
 | [company-profile.md](company-profile.md) | Canonical non-PII corporate facts (incorporation, FYE, HST, sources, entity separation) that drive treatment. |
 | [chart-of-accounts.md](chart-of-accounts.md) | Draft chart of accounts for the QBO company file. |

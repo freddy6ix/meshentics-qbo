@@ -42,8 +42,12 @@ re-authorize against the real Meshentics company, and `ping` again.
 | `npm run qbo exchange <code> <realmId>` | Exchange an auth code for tokens (saved, gitignored). |
 | `npm run qbo ping` | Verify the connection; prints company name + fiscal-year start. |
 | `npm run qbo parse [--show-personal]` | **Offline.** Classify CSVs in `data/`; preview business/personal split. |
-| `npm run qbo load-coa [--commit]` | Create the [chart of accounts](../chart-of-accounts.md). Dry-run unless `--commit`. |
-| `npm run qbo post [--commit]` | Post catch-up journal entries (Dr expense / Cr Due to Shareholder). Dry-run unless `--commit`. |
+| `npm run qbo load-coa [-- --commit]` | Create the [chart of accounts](../chart-of-accounts.md). Dry-run unless `--commit`. |
+| `npm run qbo post [-- --commit]` | Post catch-up journal entries (Dr expense / Cr Due to Shareholder). Dry-run unless `--commit`. |
+
+> **Flag-passing gotcha:** with `npm run`, pass commit/show-personal flags **after a `--`
+> separator** — e.g. `npm run qbo post -- --commit`. Without the `--`, npm swallows the flag
+> and you silently get a dry-run.
 | `npm run typecheck` / `npm test` | Type-check / run unit tests. |
 
 ## Validation status
