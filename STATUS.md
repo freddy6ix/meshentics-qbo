@@ -7,22 +7,24 @@ _Snapshot: 2026-06-06 ~10:40 EDT. Overwrite this section each session so work ca
 _Note: `--commit` must be passed as `npm run qbo <cmd> -- --commit` (the `--` separator;
 without it npm swallows the flag and you get a silent dry-run)._
 
-**🎉 CATCH-UP IS POSTED to the real Meshentics company (production).** Connected to the
-live company (realm `…0477`), loaded the COA (27 created), and posted **122 journal
-entries / $5,914.08** (Dr expense / Cr 2300). Idempotent — re-running posts nothing.
-Production is connected in `client/.env` (`QBO_ENVIRONMENT=production`, Playground redirect).
+**🎉 CATCH-UP POSTED & VERIFIED on the real Meshentics company (production).** Connected to
+the live company (realm `…0477`), loaded COA (27 created), posted the catch-up + deposits.
+Final **2300 Due to Shareholder = $7,786.10** (verified live): $5,914.08 personal-card
+expenses + $750 shareholder deposits ($250 + $500) + $1,122.02 USPTO/Apple. **CIBC Chequing
+= $750.** Production is in `client/.env` (`QBO_ENVIRONMENT=production`, Playground redirect).
+`post -- --commit` is idempotent (re-run skips existing).
 
-1. ✅ **VERIFIED in QBO (2026-06-06):** Balance Sheet as of Jun 6 2026 shows **Due to
-   Shareholder - Frederick Ferguson = $5,914.08** — exact match to the catch-up total.
-   **Cleanup:** a separate pre-existing **"Shareholder Loan" $2,917.63** (Credit Card type)
-   account also exists — not posted to by us; merge into 2300 or explain (ask Mike). Small
-   feed artifacts to reconcile: GST/HST Payable −$11.19, CIBC Chequing shows $250 vs bank.
+1. ✅ **VERIFIED + CLEANED UP (2026-06-06).** Found the company was NOT empty: a prior
+   Claude-for-Chrome session had entered **18 Aug-Sep 2025 expense Purchases ($2,667.63)**
+   via a separate **"Shareholder Loan"** account — double-counting our catch-up. Removed all
+   18, recategorized the $250 deposit → 2300, added the **$500 e-transfer (2026-04-27)** →
+   2300, deactivated "Shareholder Loan" (now $0), GST/HST back to $0. Posted **USPTO →6110**
+   and **Apple →6000** (business per Frederick) — 6 new JEs. Books balance; no duplicates.
 2. **Fix the fiscal year** (backlog S1): QBO Account & settings → Advanced → **First month
    of fiscal year = August** (currently January; FYE is July 31). Also confirm BN + no
    multicurrency, and configure **Sales Tax/HST** (S2).
-3. **REVIEW items for Mike** ($4,075 — NOT yet posted): card interest $2,953 (M10),
-   USPTO/trademark $882 (M8), Apple $240 (hardware vs services). Decide treatment, then
-   post the agreed portions (the classify rules can be flipped from `review`→`business`).
+3. **REVIEW item left for Mike** ($2,953, NOT posted): **card interest** (M10) — decide the
+   business-attributable portion, then flip its classify rule `review`→`business` and re-post.
 4. **(Optional, small) Recover the current BMO cycle.** The partial `BMO statement.csv`
    was removed (it double-counted the statements) but uniquely held ~May 26→Jun 3 2026,
    incl. a few business charges (GitHub/Sentry/GoDaddy). Re-download BMO **Mastercard**

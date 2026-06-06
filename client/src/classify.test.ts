@@ -37,7 +37,9 @@ test('financing: interest → review, fees/payments → excluded', () => {
   assert.equal(classify('PAYMENT THANK YOU/PAIEMEN T MERCI').disposition, 'excluded');
 });
 
-test('review items: trademark + Apple', () => {
-  assert.equal(classify('US PATENT TRADEMARK 571-272-6500 VA').disposition, 'review');
-  assert.equal(classify('APPLE.COM/CA TORONTO ON').disposition, 'review');
+test('trademark → Legal (6110), Apple → Software (6000) — business per Frederick 2026-06-06', () => {
+  assert.equal(classify('US PATENT TRADEMARK 571-272-6500 VA').account, '6110');
+  assert.equal(classify('US PATENT TRADEMARK 571-272-6500 VA').disposition, 'business');
+  assert.equal(classify('APPLE.COM/CA TORONTO ON').account, '6000');
+  assert.equal(classify('APPLE.COM/CA TORONTO ON').disposition, 'business');
 });
