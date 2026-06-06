@@ -20,10 +20,15 @@ expenses + $750 shareholder deposits ($250 + $500) + $1,122.02 USPTO/Apple. **CI
    18, recategorized the $250 deposit → 2300, added the **$500 e-transfer (2026-04-27)** →
    2300, deactivated "Shareholder Loan" (now $0), GST/HST back to $0. Posted **USPTO →6110**
    and **Apple →6000** (business per Frederick) — 6 new JEs. Books balance; no duplicates.
-2. **Fix the fiscal year** (backlog S1): QBO Account & settings → Advanced → **First month
-   of fiscal year = August** (currently January; FYE is July 31). Also confirm BN + no
-   multicurrency, and configure **Sales Tax/HST** (S2).
-3. **REVIEW item left for Mike** ($2,953, NOT posted): **card interest** (M10) — decide the
+2. ✅ **FY start month set to August (2026-06-06)** via Claude-for-Chrome. Books unchanged
+   (verified: 2300 still $7,786.10). Still confirm BN entered + multicurrency off.
+3. ⛔ **HST/Sales Tax — DO NOT touch yet (S2).** Found already configured (CRA agency,
+   GST/HST # matches, HST ON 13%) but with **Quarterly** filing (vs our assumed Annual) and
+   **periods open from Aug 1 2025** (vs RT0001 effective 2026-05-05 — implies a backdate was
+   already set up). Two Mike/CRA decisions first: (a) confirm CRA-assigned filing frequency
+   from the RT0001 registration; (b) the HST backdate decision (2025-08-15 vs 2026-05-05).
+   Then reconcile QBO to match. Safe to wait — catch-up JEs have no tax codes.
+4. **REVIEW item left for Mike** ($2,953, NOT posted): **card interest** (M10) — decide the
    business-attributable portion, then flip its classify rule `review`→`business` and re-post.
 4. **(Optional, small) Recover the current BMO cycle.** The partial `BMO statement.csv`
    was removed (it double-counted the statements) but uniquely held ~May 26→Jun 3 2026,

@@ -15,8 +15,8 @@ _Created 2026-06-04 EDT (end of session 1)._
 
 | ID | Item | Pri | Status | Notes |
 |----|------|-----|--------|-------|
-| S1 | Verify QBO company settings | P0 | ☐ | Company file exists. Confirm: **fiscal year first month = August** (FYE Jul 31), **BN 777028630** entered, **multicurrency OFF**. Gear → Account & settings → Advanced. |
-| S2 | Set up QBO Sales Tax (HST) | P0 | ☐ | Ontario, **annual** filing, **effective 2026-05-05**, RT0001. Taxes menu. |
+| S1 | Verify QBO company settings | P0 | ◐ | **FY first month = August set 2026-06-06** (was January) ✅. Still confirm: BN 777028630 entered, multicurrency OFF. |
+| S2 | Set up QBO Sales Tax (HST) | P0 | ⛔ | **Already configured (found 2026-06-06) — DO NOT change on live agency.** CRA agency exists, GST/HST # 777028630 matches, HST ON 13%. **BUT:** frequency = **Quarterly** (not our assumed Annual) AND periods open from **Aug 1 2025** (vs RT0001 effective 2026-05-05). **Two Mike/CRA decisions before touching it:** (1) confirm CRA-assigned filing frequency from the RT0001 registration; (2) HST backdate decision (2025-08-15 vs 2026-05-05) — the Aug-2025 periods imply a backdate was already configured. Catch-up JEs carry no tax codes, so leaving as-is is harmless. |
 | S3 | Register Intuit Developer app + OAuth | P0 | ✅ | App **`Meshentics Bookkeeping`** registered (AppID `6ae53bdf…`); **Development** keys in `client/.env`; connected to a **Canadian sandbox** (2026-06-05). **Production** keys not yet used. |
 | S4 | Build QBO API client | P0 | ✅ | Built + **sandbox-validated end-to-end (2026-06-05)**: `load-coa -- --commit` → 27 accounts, 0 failed; `post -- --commit` → 4 JEs, re-run idempotent. (Flag needs `-- ` separator.) |
 | S5 | Load chart of accounts into QBO via API | P1 | ✅ | **DONE 2026-06-06** — loaded into the real Meshentics company (27 created, 8 existing skipped, 0 failed). |
