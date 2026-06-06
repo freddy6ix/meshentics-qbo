@@ -12,8 +12,11 @@ live company (realm `…0477`), loaded the COA (27 created), and posted **122 jo
 entries / $5,914.08** (Dr expense / Cr 2300). Idempotent — re-running posts nothing.
 Production is connected in `client/.env` (`QBO_ENVIRONMENT=production`, Playground redirect).
 
-1. **Verify in QBO** (Frederick): open Meshentics QBO → Reports → check the Due to
-   Shareholder (2300) balance and a P&L/expense report look right.
+1. ✅ **VERIFIED in QBO (2026-06-06):** Balance Sheet as of Jun 6 2026 shows **Due to
+   Shareholder - Frederick Ferguson = $5,914.08** — exact match to the catch-up total.
+   **Cleanup:** a separate pre-existing **"Shareholder Loan" $2,917.63** (Credit Card type)
+   account also exists — not posted to by us; merge into 2300 or explain (ask Mike). Small
+   feed artifacts to reconcile: GST/HST Payable −$11.19, CIBC Chequing shows $250 vs bank.
 2. **Fix the fiscal year** (backlog S1): QBO Account & settings → Advanced → **First month
    of fiscal year = August** (currently January; FYE is July 31). Also confirm BN + no
    multicurrency, and configure **Sales Tax/HST** (S2).
