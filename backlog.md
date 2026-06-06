@@ -43,6 +43,7 @@ _Created 2026-06-04 EDT (end of session 1)._
 | A2 | Add USPTO trademark account/treatment | P2 | ☐ | Likely intangible/startup cost (Class 14.1?) not regular expense → see Mike (M8). |
 | A3 | Map remaining vendors to accounts | P2 | ☐ | Google Workspace → software/subs; Cloudflare/GoDaddy → domains/DNS. Refine once real data seen. |
 | A4 | Add new CIBC corporate credit card account | P1 | ✅ | Acct **2110** added to `coa.ts` + doc (card mailed 2026-06-05). **Not activated yet** → no card bank-feed possible until live; connect feed then. Also added **1010** (2nd corporate chequing). |
+| A5 | Resolve duplicate shareholder account | P1 | ☐ | **Found 2026-06-06:** the real company has a pre-existing **"Shareholder Loan" $2,917.63** (Credit Card type) *separate* from our **2300 Due to Shareholder** ($5,914.08, verified). Merge into 2300 or explain — ask Mike. Also reconcile small artifacts: GST/HST Payable −$11.19, CIBC Chequing $250 (QBO) vs bank. |
 
 ## Mike (CPA) — year-end / first T2
 
