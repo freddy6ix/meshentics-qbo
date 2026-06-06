@@ -15,10 +15,10 @@ test('business platform/SaaS vendors map to accounts', () => {
   assert.equal(classify('TWILIO INC SAN FRANCISCO CA').account, '5020');
 });
 
-test('transportation → Travel (6610)', () => {
-  assert.equal(classify('TORONTO PARKING AUTHOR TORONTO ON').account, '6610');
-  assert.equal(classify('PRESTO AUTO/RGFN8MM29S Toronto ON').account, '6610');
-  assert.equal(classify('BIKE SHARE TORONTO PARKING AUT').account, '6610');
+test('local transport → personal/commuting (reclassified 2026-06-06, pending Mike M9)', () => {
+  assert.equal(classify('TORONTO PARKING AUTHOR TORONTO ON').disposition, 'personal');
+  assert.equal(classify('PRESTO AUTO/RGFN8MM29S Toronto ON').disposition, 'personal');
+  assert.equal(classify('BIKE SHARE TORONTO PARKING AUT').disposition, 'personal');
 });
 
 test('personal is the default (including lookalikes)', () => {

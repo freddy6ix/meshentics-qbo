@@ -30,7 +30,7 @@ _Created 2026-06-04 EDT (end of session 1)._
 | C1 | Adopt vendor-first catch-up method | P0 | ◐ | Corporate chequing was barely used + no corp card historically → catch-up is ~all shareholder-funded SaaS on personal cards; no corporate bank to reconcile. Rewrite [catch-up-plan.md](catch-up-plan.md) accordingly (proposed & tentatively accepted — confirm). |
 | C2 | Finalize vendor list | P0 | ◐ | Known: GCP/Google, Anthropic, OpenAI, Resend, Auth0, Google Workspace, Cloudflare, GoDaddy, USPTO, Intuit/QBO + "many more." Complete it. |
 | C3 | Gather vendor receipts from Gmail | P0 | ⛔ | **Offered; awaiting Frederick's go.** Search scoped to vendor billing senders, May 2025 → now → exact dates/amounts/HST. Keep figures in secured store, not repo. |
-| C4 | Identify Meshentics business lines from personal cards | P0 | ◐ | **Automated** via `npm run qbo parse` (classifies CSVs in client/data/, most lines → personal). Awaiting: Frederick drops the card CSVs in client/data/ and reviews `review-output.json`. |
+| C4 | Identify Meshentics business lines from personal cards | P0 | ✅ | **Done 2026-06-06.** 1,758 txns ingested across 5 cards (TD, BMO MC+Visa, CIBC, RBC, Amex). PDF extractors built ([tools/extract_td.py](client/tools/extract_td.py), [extract_bmo.py](client/tools/extract_bmo.py)) — every statement reconciles to the penny (TD 428, BMO 239). RBC + normalized-CSV parsers added. **Business $5,914.08/122 lines**, review $4,075 (Mike), personal $33,445. Transport→personal (M9). Tiny gap: current BMO/TD cycle (~May 26→now) not statemented. |
 | C5 | Determine specific personal accounts in scope | P1 | ☐ | Which cards/debit accounts carried Meshentics charges. Per-account as we work. |
 | C6 | Build shareholder-loan startup-cost schedule | P1 | ☐ | By month/vendor/category, with HST. Lives in **secured store** (has figures), not repo. |
 | C7 | Post catch-up entries via API | P1 | ◐ | `post` **sandbox-validated 2026-06-05** (4 JEs: Dr expense / Cr **2300**, refunds reverse, personal excluded; idempotent). **Remaining:** real personal-card CSVs in `client/data/` → run against production. |
@@ -98,3 +98,16 @@ Tracked in [mike-review-queue.md](mike-review-queue.md). Summary: HST backdate (
   **2300** reconstruction via the API pipeline. Feeds handle going-forward only. [C1]
 - Next: **production** — Production keys → authorize real Meshentics company → `load-coa`,
   then `post` once real personal-card CSVs are in `client/data/`.
+
+## ✅ Done session 3 (2026-06-06)
+
+- **Ingested & classified the full catch-up dataset** [C4 ✅]: 1,758 txns from 5 personal
+  cards. Built TD + BMO **PDF statement extractors** with penny-perfect reconciliation
+  against each statement's printed balance (TD 428, BMO MC+Visa 239). Added **RBC** and
+  **normalized-CSV** parsers to parse.ts. Fixed BMO foreign-currency merchant extraction.
+- **Business total $5,914.08 / 122 lines** → 2300; review $4,075 (Mike: interest $2,953,
+  USPTO $882, Apple $240); personal $33,445; excluded 141. 8/8 unit tests pass.
+- **Local transport reclassified personal/commuting** (184 lines/$2,834) pending Mike (M9).
+- Known minor gap: current statement cycle (~May 26→now) for TD/BMO; removed partial BMO
+  csv (had GitHub/Sentry/GoDaddy in that window) to avoid double-count — re-download recent
+  BMO csv to recover. New tools: [client/tools/](client/tools/).

@@ -54,8 +54,11 @@ const RULES: Rule[] = [
   { pattern: /NUANS|CORP CANADA|CORPORATIONS CANADA/i, vendor: 'Incorporation (Corp Canada/NUANS)', account: '6120', disposition: 'business', note: 'Pre-incorp → Due to Shareholder.' },
   { pattern: /US PATENT|USPTO|CIPO/i, vendor: 'Trademark/IP (USPTO/CIPO)', disposition: 'review', note: 'Intangible (Class 14.1?) — Mike M8.' },
 
-  // --- Business: transportation (Frederick → Travel 6610; commuting split = Mike M9) ---
-  { pattern: /TORONTO PARKING|IMPARK|PRESTO|BIKE SHARE/i, vendor: 'Local transport', account: '6610', disposition: 'business', note: 'Transportation → Travel (6610); commuting split = Mike M9.' },
+  // --- Local transport: reclassified PERSONAL/commuting 2026-06-06 (Frederick) ---
+  // Mostly tiny daily bike-share/parking (184 lines/$2,834) → reads as non-deductible
+  // commuting, not business travel. Left off the books pending Mike (M9); flip to
+  // disposition 'business' + account '6610' if a business-travel portion is confirmed.
+  { pattern: /TORONTO PARKING|IMPARK|PRESTO|BIKE SHARE/i, vendor: 'Local transport', disposition: 'personal', note: 'Reclassified personal/commuting 2026-06-06; revisit with Mike (M9).' },
 ];
 
 export function classify(description: string): Classification {
