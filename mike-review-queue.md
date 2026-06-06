@@ -6,6 +6,11 @@ authority). Each item notes where it came from. No PII.
 
 _Started 2026-06-04 EDT._
 
+**📧 Emailed to Mike 2026-06-06** — all items below sent as treatment questions; awaiting his
+calls. Latest state baked in: trademark/IP currently **expensed** to 6110 (item 8), transport
+treated as **personal/commuting** off books (item 9), card interest **held out** of the books
+(item 10), HST found pre-configured in QBO as Quarterly w/ Aug-2025 periods (items 1/6).
+
 | # | Item | Why it's here | Status |
 |---|------|---------------|--------|
 | 1 | **Backdate HST effective date 2026-05-05 → 2025-08-15?** | Registered effective 2026-05-05 (online form caps backdating at 30 days). The whole first fiscal year is otherwise pre-registration → no ITCs on catch-up-period costs. Backdating via CRA (phone/written request) could recover real HST, but much of the big spend is US suppliers who may not charge GST/HST. Cost/benefit + execution call. See [company-profile.md](company-profile.md). | ⬜ Open |
