@@ -85,3 +85,8 @@ export async function getInvoices(): Promise<any[]> {
 export async function createInvoice(invoice: Record<string, unknown>): Promise<any> {
   return apiRequest('POST', 'invoice', invoice);
 }
+
+// Emails the invoice to `email` and marks it EmailSent.
+export async function sendInvoice(id: string, email: string): Promise<any> {
+  return apiRequest('POST', `invoice/${id}/send?sendTo=${encodeURIComponent(email)}`);
+}
