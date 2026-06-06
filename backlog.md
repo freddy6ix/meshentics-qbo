@@ -66,7 +66,7 @@ Tracked in [mike-review-queue.md](mike-review-queue.md). Summary: HST backdate (
 |----|------|-----|--------|-------|
 | P1 | Move keys/PII to secured store | P1 | ☐ | Federal corp key, Ontario company key (these are **passwords**), BN, SIN, DOB, address. Never in repo. |
 | P2 | Consider safeguarding/rotating company keys | P2 | ☐ | Transmitted via email/chat this session; treat as exposed. |
-| P3 | Entity-separation email hygiene | P3 | ☐ | Meshentics incorporation mail routed to `accounting@salonlyol.ca`; consider a Meshentics-domain admin mailbox. |
+| P3 | Entity-separation email hygiene | P3 | ✅ | **Resolved 2026-06-06.** Root cause found via Claude-for-Chrome read-only diagnosis: not an admin alias/domain/group/routing rule — it was a **Gmail forward-and-delete inside the `accounting@salonlyol.ca` mailbox** sending its mail to a Meshentics address (and deleting Salon Lyol's copy). Forward removed → Salon Lyol mail now stays in its own mailbox. (Salon Lyol is its own Workspace; no Meshentics domain present.) |
 
 ## Process / meta
 
