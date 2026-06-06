@@ -19,7 +19,13 @@ async function apiRequest(method: 'GET' | 'POST', resource: string, body?: unkno
     },
     body: body ? JSON.stringify(body) : undefined,
   });
-  if (!res.ok) throw new Error(`QBO ${method} ${resource} failed: ${res.status} ${await res.text()}`);
+  if (!res.ok) {
+    // Capture intuit_tid (response-header transaction id) — lets Intuit support trace failures.
+    const tid = res.headers.get('intuit_tid');
+    throw new Error(
+      `QBO ${method} ${resource} failed: ${res.status}${tid ? ` (intuit_tid ${tid})` : ''} ${await res.text()}`,
+    );
+  }
   return res.json();
 }
 

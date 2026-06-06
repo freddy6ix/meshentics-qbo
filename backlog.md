@@ -19,7 +19,7 @@ _Created 2026-06-04 EDT (end of session 1)._
 | S2 | Set up QBO Sales Tax (HST) | P0 | ☐ | Ontario, **annual** filing, **effective 2026-05-05**, RT0001. Taxes menu. |
 | S3 | Register Intuit Developer app + OAuth | P0 | ✅ | App **`Meshentics Bookkeeping`** registered (AppID `6ae53bdf…`); **Development** keys in `client/.env`; connected to a **Canadian sandbox** (2026-06-05). **Production** keys not yet used. |
 | S4 | Build QBO API client | P0 | ✅ | Built + **sandbox-validated end-to-end (2026-06-05)**: `load-coa -- --commit` → 27 accounts, 0 failed; `post -- --commit` → 4 JEs, re-run idempotent. (Flag needs `-- ` separator.) |
-| S5 | Load chart of accounts into QBO via API | P1 | ◐ | **Validated in sandbox** (27 created). **Remaining:** run `load-coa -- --commit` against the **real Meshentics company** in production. Enable "Account numbers" in QBO settings first. |
+| S5 | Load chart of accounts into QBO via API | P1 | ✅ | **DONE 2026-06-06** — loaded into the real Meshentics company (27 created, 8 existing skipped, 0 failed). |
 | S6 | Provision secured GCS bucket + secret store | P1 | ☐ | `gs://…-qbo-meshentics/`, IAM-walled, dedicated project, **6-yr retention** (CRA), Secret Manager for OAuth tokens. [ADR-0003](decisions/0003-source-doc-storage.md). Confirm exact bucket name/project. |
 | S7 | Disable Claude-for-Chrome "Act without asking" in QBO | P1 | ☐ | Seen in HIGH-RISK auto-act mode in live books; we book via API, not browser auto-actions. |
 
@@ -33,7 +33,7 @@ _Created 2026-06-04 EDT (end of session 1)._
 | C4 | Identify Meshentics business lines from personal cards | P0 | ✅ | **Done 2026-06-06.** 1,758 txns ingested across 5 cards (TD, BMO MC+Visa, CIBC, RBC, Amex). PDF extractors built ([tools/extract_td.py](client/tools/extract_td.py), [extract_bmo.py](client/tools/extract_bmo.py)) — every statement reconciles to the penny (TD 428, BMO 239). RBC + normalized-CSV parsers added. **Business $5,914.08/122 lines**, review $4,075 (Mike), personal $33,445. Transport→personal (M9). Tiny gap: current BMO/TD cycle (~May 26→now) not statemented. |
 | C5 | Determine specific personal accounts in scope | P1 | ☐ | Which cards/debit accounts carried Meshentics charges. Per-account as we work. |
 | C6 | Build shareholder-loan startup-cost schedule | P1 | ☐ | By month/vendor/category, with HST. Lives in **secured store** (has figures), not repo. |
-| C7 | Post catch-up entries via API | P1 | ◐ | `post` **sandbox-validated 2026-06-05** (4 JEs: Dr expense / Cr **2300**, refunds reverse, personal excluded; idempotent). **Remaining:** real personal-card CSVs in `client/data/` → run against production. |
+| C7 | Post catch-up entries via API | P1 | ✅ | **DONE 2026-06-06.** Posted **122 JEs / $5,914.08** (Dr expense / Cr **2300**) to the real Meshentics company; verified idempotent. REVIEW items ($4,075) held for Mike. |
 
 ## Chart of accounts refinements
 
@@ -111,3 +111,14 @@ Tracked in [mike-review-queue.md](mike-review-queue.md). Summary: HST backdate (
 - Known minor gap: current statement cycle (~May 26→now) for TD/BMO; removed partial BMO
   csv (had GitHub/Sentry/GoDaddy in that window) to avoid double-count — re-download recent
   BMO csv to recover. New tools: [client/tools/](client/tools/).
+
+## ✅ Done session 4 (2026-06-06) — PRODUCTION GO-LIVE
+
+- **Posted the catch-up to the real Meshentics books** [S5 ✅, C7 ✅]. Completed Intuit's
+  production app-assessment (EULA + privacy pages via GitHub Pages; ~6-tab compliance
+  questionnaire), unlocked production keys, connected the live company via the OAuth
+  Playground redirect (production blocks `localhost`). Loaded COA (27 created) + posted
+  **122 JEs / $5,914.08** (Dr expense / Cr 2300), verified idempotent.
+- Added `intuit_tid` capture to error handling ([qbo.ts](client/src/qbo.ts)).
+- **Next:** verify in QBO; fix FY start month → August (S1); configure HST (S2); Mike's
+  review items ($4,075); optional BMO current-cycle re-download.
