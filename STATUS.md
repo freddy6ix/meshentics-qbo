@@ -1,30 +1,31 @@
 # Status — Meshentics QBO bookkeeping
 
-_Snapshot: 2026-06-06 ~early AM. Overwrite this section each session so work can resume cold._
+_Snapshot: 2026-06-06 ~10:40 EDT. Overwrite this section each session so work can resume cold._
 
 ## ▶ Resume here (prioritized next steps)
 
 _Note: `--commit` must be passed as `npm run qbo <cmd> -- --commit` (the `--` separator;
 without it npm swallows the flag and you get a silent dry-run)._
 
-**Catch-up data is now INGESTED & classified** (see rollup): 1,758 txns across 5 cards,
-**business $5,914.08 / 122 lines** → 2300. Remaining is connection + posting + decisions.
+**🎉 CATCH-UP IS POSTED to the real Meshentics company (production).** Connected to the
+live company (realm `…0477`), loaded the COA (27 created), and posted **122 journal
+entries / $5,914.08** (Dr expense / Cr 2300). Idempotent — re-running posts nothing.
+Production is connected in `client/.env` (`QBO_ENVIRONMENT=production`, Playground redirect).
 
-1. **(Optional, small) Recover the current BMO cycle.** The partial `BMO statement.csv`
+1. **Verify in QBO** (Frederick): open Meshentics QBO → Reports → check the Due to
+   Shareholder (2300) balance and a P&L/expense report look right.
+2. **Fix the fiscal year** (backlog S1): QBO Account & settings → Advanced → **First month
+   of fiscal year = August** (currently January; FYE is July 31). Also confirm BN + no
+   multicurrency, and configure **Sales Tax/HST** (S2).
+3. **REVIEW items for Mike** ($4,075 — NOT yet posted): card interest $2,953 (M10),
+   USPTO/trademark $882 (M8), Apple $240 (hardware vs services). Decide treatment, then
+   post the agreed portions (the classify rules can be flipped from `review`→`business`).
+4. **(Optional, small) Recover the current BMO cycle.** The partial `BMO statement.csv`
    was removed (it double-counted the statements) but uniquely held ~May 26→Jun 3 2026,
-   incl. a few business charges (GitHub/Sentry/GoDaddy). To capture: re-download BMO
-   **Mastercard** transactions for **May 26 2026 → today** as CSV → drop in `client/data/`
-   (post-statement dates only, so no overlap). TD's current cycle (post May 25) has no CSV
-   option — picks up on the next TD statement.
-2. **Go to PRODUCTION.** Intuit app → **Keys & credentials → Production** (may need to
-   complete app fields first); set `QBO_ENVIRONMENT=production` + Production keys in
-   `client/.env`; `authurl` → authorize the **real Meshentics company** → `exchange` → `ping`.
-3. **Load COA:** `npm run qbo load-coa -- --commit`.
-4. **Post the catch-up (→ 2300):** `npm run qbo parse -- --show-personal` (final review) →
-   `npm run qbo post -- --commit`. (REVIEW items below do NOT post — they're Mike's calls.)
-5. **REVIEW items for Mike** ($4,075): card interest $2,953 (M10), USPTO/trademark $882 (M8),
-   Apple $240 (hardware vs services). Decide treatment, then post the agreed portions.
-6. **In QBO "For Review":** categorize the 1 pending chequing item (2025-09-24
+   incl. a few business charges (GitHub/Sentry/GoDaddy). Re-download BMO **Mastercard**
+   transactions for **May 26 2026 → today** as CSV → drop in `client/data/` → re-run `post
+   -- --commit` (idempotent, only the new lines post). TD's current cycle has no CSV option.
+5. **In QBO "For Review":** categorize the 1 pending chequing item (2025-09-24
    "CANADIAN OUTLET" $20.00 on …1011); accept feed items going forward.
 7. **After the 2026 card (2110) is activated:** connect its CIBC feed → card GL account.
 8. **Provision the GCS secured store** for source docs + OAuth secrets (backlog S6).
@@ -59,13 +60,18 @@ without it npm swallows the flag and you get a silent dry-run)._
   printed balance to the penny** (TD 428, BMO 239). Added RBC + normalized-CSV parsers to
   [parse.ts](client/src/parse.ts). Result: **business $5,914.08 / 122 lines** (→2300), review $4,075 (Mike),
   personal $33,445, excluded 141. Local transport reclassified personal/commuting (Mike M9).
-  Raw statements stay gitignored. **Not yet posted** (needs production connection).
+  Raw statements stay gitignored.
+- **🎉 POSTED TO PRODUCTION (2026-06-06).** Completed Intuit's app-assessment (EULA/privacy
+  pages on GitHub Pages, compliance questionnaire), unlocked production keys, connected the
+  **real Meshentics Technologies Inc.** company via the Playground redirect. Loaded COA
+  (27 created) and **posted 122 journal entries / $5,914.08** (Dr expense / Cr 2300),
+  verified idempotent. Added `intuit_tid` capture to error handling ([qbo.ts](client/src/qbo.ts)).
 
 **Not done (PRODUCTION side)**
-- Nothing done on the **real Meshentics company** yet: not connected, COA not loaded,
-  **no months closed, nothing posted.** (All validation so far is in the throwaway sandbox.)
-- Production Intuit keys not yet used; real-company settings not verified (FY start = August,
-  BN, no multicurrency); sales tax/HST not configured. GCS store not provisioned.
+- Real-company **settings not verified**: FY start month still **January** (should be August),
+  BN, no multicurrency; **Sales Tax/HST not configured**. GCS store not provisioned.
+- **REVIEW items not posted** ($4,075: card interest, USPTO, Apple) — pending Mike.
+- Current statement cycle (~May 26→now) for TD/BMO not yet captured.
 - **Corporate credit card:** no active card yet (only the 2110 card mailed 2026-06-05,
   not activated) — no card feed possible until it's live.
 
