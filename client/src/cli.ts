@@ -8,6 +8,7 @@ import { getCompanyInfo } from './qbo.ts';
 import { runParse } from './report.ts';
 import { loadCoa } from './coa.ts';
 import { postCatchup } from './post.ts';
+import { runInvoice } from './invoice.ts';
 
 const [cmd, ...args] = process.argv.slice(2);
 const DATA_DIR = new URL('../data', import.meta.url).pathname;
@@ -47,6 +48,13 @@ async function main(): Promise<void> {
       await postCatchup(DATA_DIR, { commit: args.includes('--commit') }); // dry-run unless --commit
       break;
     }
+    case 'invoice': {
+      const now = new Date();
+      const thisMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+      const period = args.find((a) => /^\d{4}-\d{2}$/.test(a)) ?? thisMonth; // default: current month
+      await runInvoice(period, { commit: args.includes('--commit') }); // dry-run unless --commit
+      break;
+    }
     default:
       console.log(
         'Commands:\n' +
@@ -55,7 +63,8 @@ async function main(): Promise<void> {
           '  npm run qbo ping\n' +
           '  npm run qbo parse [--show-personal]   (offline: classify CSVs in client/data/)\n' +
           '  npm run qbo load-coa [--commit]       (create chart of accounts)\n' +
-          '  npm run qbo post [--commit]           (post catch-up journal entries)',
+          '  npm run qbo post [--commit]           (post catch-up journal entries)\n' +
+          '  npm run qbo invoice [YYYY-MM] [--commit]  (DoWhat → Salon Lyol; default current month)',
       );
   }
 }

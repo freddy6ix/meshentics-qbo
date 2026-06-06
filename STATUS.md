@@ -14,6 +14,13 @@ expenses + $750 shareholder deposits ($250 + $500) + $1,122.02 USPTO/Apple. **CI
 = $750.** Production is in `client/.env` (`QBO_ENVIRONMENT=production`, Playground redirect).
 `post -- --commit` is idempotent (re-run skips existing).
 
+**💵 REVENUE STARTED (2026-06-06).** Built `npm run qbo invoice [YYYY-MM] [-- --commit]` —
+recurring DoWhat invoice **Meshentics → 9937609 Canada Inc. dba Salon Lyol, $150/mo + 13%
+HST, Net 30** → acct 4000. First invoice (#150, June 2026, $169.50) **created** in QBO;
+idempotent per month. **NOT yet emailed to Salon Lyol** (customer has no email on file) —
+need their billing email, then send via QBO UI or add a send step. Related-party rate: $150
+is prevailing market rate (Mike queue item 11).
+
 1. ✅ **VERIFIED + CLEANED UP (2026-06-06).** Found the company was NOT empty: a prior
    Claude-for-Chrome session had entered **18 Aug-Sep 2025 expense Purchases ($2,667.63)**
    via a separate **"Shareholder Loan"** account — double-counting our catch-up. Removed all
