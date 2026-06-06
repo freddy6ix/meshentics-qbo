@@ -1,28 +1,33 @@
 # Status — Meshentics QBO bookkeeping
 
-_Snapshot: 2026-06-05 ~15:30 EDT. Overwrite this section each session so work can resume cold._
+_Snapshot: 2026-06-06 ~early AM. Overwrite this section each session so work can resume cold._
 
 ## ▶ Resume here (prioritized next steps)
 
 _Note: `--commit` must be passed as `npm run qbo <cmd> -- --commit` (the `--` separator;
 without it npm swallows the flag and you get a silent dry-run)._
 
-1. **Go to PRODUCTION.** Sandbox is fully validated (see rollup). To run the real books:
-   in the Intuit app → **Keys & credentials → Production** tab (you may need to complete
-   the app's required fields first); set `QBO_ENVIRONMENT=production` + the Production
-   `QBO_CLIENT_ID/SECRET` in `client/.env`; `npm run qbo authurl` → authorize against the
-   **real Meshentics company** → `exchange` → `ping`.
-2. **Load the COA into the real company:** `npm run qbo load-coa -- --commit`
-   (skips the 3 CIBC GL accounts already created live + any QBO defaults).
-3. **Run the catch-up (→ 2300 Due to Shareholder):** drop **personal-card CSVs only**
-   (Amex/BMO/personal Visa — **NOT** the corporate CIBC export; the feed owns that) in
-   `client/data/` → `npm run qbo parse -- --show-personal` (review split) →
-   `npm run qbo post -- --commit`.
-4. **In QBO "For Review":** categorize the 1 pending chequing item (2025-09-24
+**Catch-up data is now INGESTED & classified** (see rollup): 1,758 txns across 5 cards,
+**business $5,914.08 / 122 lines** → 2300. Remaining is connection + posting + decisions.
+
+1. **(Optional, small) Recover the current BMO cycle.** The partial `BMO statement.csv`
+   was removed (it double-counted the statements) but uniquely held ~May 26→Jun 3 2026,
+   incl. a few business charges (GitHub/Sentry/GoDaddy). To capture: re-download BMO
+   **Mastercard** transactions for **May 26 2026 → today** as CSV → drop in `client/data/`
+   (post-statement dates only, so no overlap). TD's current cycle (post May 25) has no CSV
+   option — picks up on the next TD statement.
+2. **Go to PRODUCTION.** Intuit app → **Keys & credentials → Production** (may need to
+   complete app fields first); set `QBO_ENVIRONMENT=production` + Production keys in
+   `client/.env`; `authurl` → authorize the **real Meshentics company** → `exchange` → `ping`.
+3. **Load COA:** `npm run qbo load-coa -- --commit`.
+4. **Post the catch-up (→ 2300):** `npm run qbo parse -- --show-personal` (final review) →
+   `npm run qbo post -- --commit`. (REVIEW items below do NOT post — they're Mike's calls.)
+5. **REVIEW items for Mike** ($4,075): card interest $2,953 (M10), USPTO/trademark $882 (M8),
+   Apple $240 (hardware vs services). Decide treatment, then post the agreed portions.
+6. **In QBO "For Review":** categorize the 1 pending chequing item (2025-09-24
    "CANADIAN OUTLET" $20.00 on …1011); accept feed items going forward.
-5. **After the new 2026 card (2110) is activated:** connect its CIBC feed and map to the
-   card GL account. (Not connectable today — card was only mailed 2026-06-05.)
-6. **Provision the GCS secured store** for source docs + OAuth secrets (backlog S6).
+7. **After the 2026 card (2110) is activated:** connect its CIBC feed → card GL account.
+8. **Provision the GCS secured store** for source docs + OAuth secrets (backlog S6).
 
 ## Current rollup
 
@@ -47,6 +52,14 @@ without it npm swallows the flag and you get a silent dry-run)._
   (1 chequing txn total). Meshentics has run on Frederick's **personal cards → 2300**, so
   the catch-up is the **API/CLI 2300 reconstruction** ([post.ts](client/src/post.ts): Dr expense / Cr 2300, never
   touches the fed accounts → no double-book). **Guardrail: only personal-card CSVs in `client/data/`.**
+
+- **Catch-up data INGESTED & classified (2026-06-06).** 1,758 txns across 5 personal cards
+  (TD Aeroplan, BMO Mastercard + Visa, CIBC Visa, RBC Visa, Amex). Built PDF extractors
+  ([client/tools/extract_td.py](client/tools/extract_td.py), [extract_bmo.py](client/tools/extract_bmo.py)) — **every statement reconciles to the
+  printed balance to the penny** (TD 428, BMO 239). Added RBC + normalized-CSV parsers to
+  [parse.ts](client/src/parse.ts). Result: **business $5,914.08 / 122 lines** (→2300), review $4,075 (Mike),
+  personal $33,445, excluded 141. Local transport reclassified personal/commuting (Mike M9).
+  Raw statements stay gitignored. **Not yet posted** (needs production connection).
 
 **Not done (PRODUCTION side)**
 - Nothing done on the **real Meshentics company** yet: not connected, COA not loaded,
