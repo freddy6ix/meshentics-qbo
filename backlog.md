@@ -43,7 +43,7 @@ _Created 2026-06-04 EDT (end of session 1)._
 | A2 | Add USPTO trademark account/treatment | P2 | ☐ | Likely intangible/startup cost (Class 14.1?) not regular expense → see Mike (M8). |
 | A3 | Map remaining vendors to accounts | P2 | ☐ | Google Workspace → software/subs; Cloudflare/GoDaddy → domains/DNS. Refine once real data seen. |
 | A4 | Add new CIBC corporate credit card account | P1 | ✅ | Acct **2110** added to `coa.ts` + doc (card mailed 2026-06-05). **Not activated yet** → no card bank-feed possible until live; connect feed then. Also added **1010** (2nd corporate chequing). |
-| A5 | Resolve duplicate shareholder account | P1 | ☐ | **Found 2026-06-06:** the real company has a pre-existing **"Shareholder Loan" $2,917.63** (Credit Card type) *separate* from our **2300 Due to Shareholder** ($5,914.08, verified). Merge into 2300 or explain — ask Mike. Also reconcile small artifacts: GST/HST Payable −$11.19, CIBC Chequing $250 (QBO) vs bank. |
+| A5 | Resolve duplicate shareholder account | P1 | ✅ | **DONE 2026-06-06.** The "duplicate" was a prior Claude-for-Chrome partial catch-up: 18 Aug-Sep 2025 expense Purchases ($2,667.63) via a separate "Shareholder Loan" account. Deleted all 18, deactivated the account; GST/HST artifact (−$11.19) cleared with them. Deposits ($250 + new $500) recategorized → 2300. |
 
 ## Mike (CPA) — year-end / first T2
 
@@ -121,5 +121,10 @@ Tracked in [mike-review-queue.md](mike-review-queue.md). Summary: HST backdate (
   Playground redirect (production blocks `localhost`). Loaded COA (27 created) + posted
   **122 JEs / $5,914.08** (Dr expense / Cr 2300), verified idempotent.
 - Added `intuit_tid` capture to error handling ([qbo.ts](client/src/qbo.ts)).
-- **Next:** verify in QBO; fix FY start month → August (S1); configure HST (S2); Mike's
-  review items ($4,075); optional BMO current-cycle re-download.
+- **VERIFIED + CLEANED UP [A5 ✅]:** company wasn't empty — removed 18 Chrome duplicate
+  expenses + deactivated the stray "Shareholder Loan" account; recategorized the $250
+  deposit and added the **$500 e-transfer (2026-04-27)** → 2300; posted **USPTO →6110** +
+  **Apple →6000** (business per Frederick). **Final 2300 = $7,786.10; CIBC Chequing = $750.**
+- **Next:** fix FY start month → August (S1); configure HST (S2); **card interest $2,953**
+  (Mike M10) is the only remaining review item; reconcile corporate chequing fees vs bank
+  ($750 QBO vs $669.50 bank); optional BMO current-cycle re-download.

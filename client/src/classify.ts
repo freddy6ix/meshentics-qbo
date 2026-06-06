@@ -48,11 +48,11 @@ const RULES: Rule[] = [
   { pattern: /GOOGLE.*(WORKSPACE|GSUITE)/i, vendor: 'Google Workspace', account: '6000', disposition: 'business' },
   { pattern: /INTUIT|QBOOKS/i, vendor: 'Intuit/QBO', account: '6000', disposition: 'business' },
   { pattern: /LINKEDIN/i, vendor: 'LinkedIn', account: '6300', disposition: 'business' },
-  { pattern: /APPLE\.COM|APPLE STORE/i, vendor: 'Apple', account: '6000', disposition: 'review', note: 'Business per Frederick; split hardware (1500) vs services (6000) case-by-case.' },
+  { pattern: /APPLE\.COM|APPLE STORE/i, vendor: 'Apple', account: '6000', disposition: 'business', note: 'Business per Frederick (2026-06-06); all small services → 6000.' },
 
   // --- Business: incorporation / IP ---
   { pattern: /NUANS|CORP CANADA|CORPORATIONS CANADA/i, vendor: 'Incorporation (Corp Canada/NUANS)', account: '6120', disposition: 'business', note: 'Pre-incorp → Due to Shareholder.' },
-  { pattern: /US PATENT|USPTO|CIPO/i, vendor: 'Trademark/IP (USPTO/CIPO)', disposition: 'review', note: 'Intangible (Class 14.1?) — Mike M8.' },
+  { pattern: /US PATENT|USPTO|CIPO/i, vendor: 'Trademark/IP (USPTO/CIPO)', account: '6110', disposition: 'business', note: 'Business per Frederick (2026-06-06) → Legal (6110). Mike may capitalize as intangible (Class 14.1) at year-end — M8.' },
 
   // --- Local transport: reclassified PERSONAL/commuting 2026-06-06 (Frederick) ---
   // Mostly tiny daily bike-share/parking (184 lines/$2,834) → reads as non-deductible
