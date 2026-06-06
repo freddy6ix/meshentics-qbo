@@ -68,3 +68,20 @@ export async function createJournalEntry(entry: Record<string, unknown>): Promis
 export async function createPurchase(purchase: Record<string, unknown>): Promise<any> {
   return apiRequest('POST', 'purchase', purchase);
 }
+
+export async function createCustomer(customer: Record<string, unknown>): Promise<any> {
+  return apiRequest('POST', 'customer', customer);
+}
+
+export async function createItem(item: Record<string, unknown>): Promise<any> {
+  return apiRequest('POST', 'item', item);
+}
+
+export async function getInvoices(): Promise<any[]> {
+  const r = await query('select * from Invoice maxresults 1000');
+  return r?.QueryResponse?.Invoice ?? [];
+}
+
+export async function createInvoice(invoice: Record<string, unknown>): Promise<any> {
+  return apiRequest('POST', 'invoice', invoice);
+}
