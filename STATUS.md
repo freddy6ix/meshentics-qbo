@@ -87,6 +87,7 @@ invoice -- --commit`. Related-party rate: $150 is prevailing market rate (Mike q
   **Meshentics QBO** — invited as accountant (*Invited*, pending acceptance; 2nd of 2 firm slots).
   **Salon Lyol QBO** — already Active (separate entity, §5). **CRA** — authorized as representative,
   **Level 2 · all accounts · no expiry** (online), name-match verified against the firm's BN.
+  **Articles of Incorporation + BN** emailed to Mike 2026-06-10 — **all three of his setup items done.**
 
 **Not done (PRODUCTION side)**
 - Real-company **settings not verified**: FY start month still **January** (should be August),
@@ -97,7 +98,7 @@ invoice -- --commit`. Related-party rate: $150 is prevailing market rate (Mike q
   not activated) — no card feed possible until it's live.
 
 ## Open items
-- **For Frederick:** **send Articles of Incorporation + BN to Mike** (his item 1; items 2 CRA-rep & 3 QBO-invite done 2026-06-10); confirm **Uber/taxi** treatment (transport vs personal — currently personal).
+- **For Frederick:** confirm **Uber/taxi** treatment (transport vs personal — currently personal). _(Mike's 3 setup items — Articles+BN, CRA rep, QBO invite — all done 2026-06-10.)_
 - **SR&ED opportunity** flagged by Mike (2026-06-10) → [mike-review-queue.md](mike-review-queue.md) item 12. Roux R&D may qualify for refundable credits; start R&D time/cost tracking. Mike "to get back" on one other treatment item.
 - **For Mike (year-end):** see [mike-review-queue.md](mike-review-queue.md) — HST backdate, FYE confirm, startup costs, trademark/IP, meals 50%, GST self-assess, salary vs dividends, transport/commuting, card-interest mechanism.
 - **Full backlog:** [backlog.md](backlog.md).
