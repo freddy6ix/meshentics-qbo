@@ -97,7 +97,8 @@ invoice -- --commit`. Related-party rate: $150 is prevailing market rate (Mike q
   not activated) — no card feed possible until it's live.
 
 ## Open items
-- **For Frederick:** confirm **Uber/taxi** treatment (transport vs personal — currently personal). _(CPA access — QBO + CRA — done 2026-06-10.)_
+- **For Frederick:** **send Articles of Incorporation + BN to Mike** (his item 1; items 2 CRA-rep & 3 QBO-invite done 2026-06-10); confirm **Uber/taxi** treatment (transport vs personal — currently personal).
+- **SR&ED opportunity** flagged by Mike (2026-06-10) → [mike-review-queue.md](mike-review-queue.md) item 12. Roux R&D may qualify for refundable credits; start R&D time/cost tracking. Mike "to get back" on one other treatment item.
 - **For Mike (year-end):** see [mike-review-queue.md](mike-review-queue.md) — HST backdate, FYE confirm, startup costs, trademark/IP, meals 50%, GST self-assess, salary vs dividends, transport/commuting, card-interest mechanism.
 - **Full backlog:** [backlog.md](backlog.md).
 
