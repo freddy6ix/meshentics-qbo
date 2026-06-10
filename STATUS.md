@@ -83,6 +83,10 @@ invoice -- --commit`. Related-party rate: $150 is prevailing market rate (Mike q
   **real Meshentics Technologies Inc.** company via the Playground redirect. Loaded COA
   (27 created) and **posted 122 journal entries / $5,914.08** (Dr expense / Cr 2300),
   verified idempotent. Added `intuit_tid` capture to error handling ([qbo.ts](client/src/qbo.ts)).
+- **CPA access — Meshentics QBO (2026-06-10):** Michael Bloomberg (CPA) invited to the
+  Meshentics QBO company as an **accountant** — status *Invited*, pending his acceptance
+  (fills the 2nd of 2 accountant-firm slots). Also confirming his access to Salon Lyol's
+  separate QBO (different entity, §5). **CRA representative authorization still to do.**
 
 **Not done (PRODUCTION side)**
 - Real-company **settings not verified**: FY start month still **January** (should be August),
@@ -93,7 +97,7 @@ invoice -- --commit`. Related-party rate: $150 is prevailing market rate (Mike q
   not activated) — no card feed possible until it's live.
 
 ## Open items
-- **For Frederick:** register Intuit app (blocker); drop CSVs in `client/data/`; confirm **Uber/taxi** treatment (transport vs personal — currently personal).
+- **For Frederick:** authorize **Michael Bloomberg (CPA) as a CRA representative** on the corporate BN (his RepID, or he requests via Represent a Client → you approve; recommend **Level 2** on RC0001 + RT0001); confirm **Uber/taxi** treatment (transport vs personal — currently personal).
 - **For Mike (year-end):** see [mike-review-queue.md](mike-review-queue.md) — HST backdate, FYE confirm, startup costs, trademark/IP, meals 50%, GST self-assess, salary vs dividends, transport/commuting, card-interest mechanism.
 - **Full backlog:** [backlog.md](backlog.md).
 
